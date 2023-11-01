@@ -1,1 +1,10 @@
+spring:
+  data:
+    mongodb:
+      host: ${MDB_HOST}
+      port: ${MDB_PORT}
+      database: ${MDB_DB}
+      username: ${MDB_USER}
+      password: ${MDB_PASSWORD}
+      authentication-database: admin
 
