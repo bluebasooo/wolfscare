@@ -1,11 +1,10 @@
 package ru.bluebasooo.wolfenscare.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.bluebasooo.wolfenscare.entity.Movie;
+import org.springframework.web.bind.annotation.*;
+import ru.bluebasooo.wolfenscare.dto.CreatingUserDto;
+import ru.bluebasooo.wolfenscare.dto.UserDto;
+import ru.bluebasooo.wolfenscare.entity.MovieInfo;
 import ru.bluebasooo.wolfenscare.entity.User;
 import ru.bluebasooo.wolfenscare.service.UserService;
 
@@ -24,7 +23,12 @@ public class UserController {
     }
 
     @GetMapping("/{username}/movie")
-    public List<Movie> getUsersSeenFilms(@PathVariable String username) {
+    public List<MovieInfo> getUsersSeenFilms(@PathVariable String username) {
         return userService.getMoviesByUserName(username);
+    }
+
+    @PostMapping("/")
+    public UserDto createUser(@RequestBody CreatingUserDto creatingUserDto) {
+        return userService.createUser(creatingUserDto);
     }
 }

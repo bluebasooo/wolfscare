@@ -10,13 +10,15 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Document("users")
 public class User {
     @Id
     private String username;
-    private String firstName;
-    private String lastName;
-    private List<Movie> seenMovies;
+    private String firstname;
+    private String lastname;
+    private List<MovieInfo> seenMovies;
 }
