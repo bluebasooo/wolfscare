@@ -31,12 +31,13 @@ public class FilesService {
 
     public ResourceRegion getChunk(String fileId, long start, long end) {
         var len = Math.min(CHUNK, end - start + 1);
+        if(len < 0) len = CHUNK;
         var inStream = fileRepository.getFile(fileId);
 
         return new ResourceRegion(inStream, start, len);
     }
 
-    public FileDto uploadFile(InputStreamResource resource, String filename) {
+    public FileDto uploadFile(byte[] resource, String filename) {
         return fileRepository.uploadFile(resource, filename);
     }
 

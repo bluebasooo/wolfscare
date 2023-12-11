@@ -9,7 +9,9 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Repository;
 import ru.bluebasooo.wolfenscare.dto.FileDto;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
 
 @Repository
@@ -47,15 +49,11 @@ public class FileRepository {
         return gridFsTemplate.getResource(file);
     }
 
-    public FileDto uploadFile(InputStreamResource file, String filename) {
-        try {
-            ObjectId id = gridFsTemplate.store(file.getInputStream(), filename);
+    public FileDto uploadFile(byte[] file, String filename) {
+            ObjectId id = gridFsTemplate.store(new ByteArrayInputStream(file), filename);
             return FileDto.builder()
                     .id(id.toString())
-                    .length(file.contentLength())
+                    .length((long)file.length)
                     .build();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
